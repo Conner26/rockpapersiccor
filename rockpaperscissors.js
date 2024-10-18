@@ -8,7 +8,7 @@ function getUserChoice(userInput){
         console.log('Invalid choice Please choose rock paper or scissors.');
     }
 }
-
+/// Determining Choice and Outcome
 function getComputerChoice(){
     const choices = ['rock','paper','scissors'];
     const randomChoice =
