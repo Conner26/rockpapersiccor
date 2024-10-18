@@ -1,39 +1,54 @@
 //file for game
 
-// Choices //
-let choice = ['rock', 'paper', 'scissors'];
-// Randomly Generate a computer choice //
-function getComputerChoice(choice){
-
-    return choice[Math.floor(Math.random() * choice.length)];
-
+function getUserChoice(userInput){
+    userInput = userInput.toLowerCase();
+    if(userInput === 'rock' || userInput === 'paper' || userInput === 'scissors'){
+        return userInput; 
+    }else{
+        console.log('Invalid choice Please choose rock paper or scissors.');
+    }
 }
 
-console.log(getComputerChoice(choice));
-
-// Playing the round ; determining winners //
-
-function round (playerSelection,computerSelection){
-if (playerSelection===computerSelection){
-return "It's a tie! You both picked the same choice!" ;
-}
-else if (playerSelection==="rock" && computerSelection==="scissors"){
-return "You win! Rock beats scissors.";
-}
-else if (playerSelection==="paper" && computerSelection==="rock"){
-    return "You win! Paper beats rock.";
+function getComputerChoice(){
+    const choices = ['rock','paper','scissors'];
+    const randomChoice =
+Math.floor(Math.random()*3);
+    return choices[randomChoice];
 }
 
-else if (playerSelection==="scissors" && computerSelection==="paper"){
-    return "You win! Scissors beats paper.";
+function determineWinner(userChoice,computerChocie){
+    if (userChoice === computerChocie){
+        return "It's a tie"
+    }
+    if(userChoice === 'rock'){
+        if(computerChocie === 'scissors'){
+            return 'You win';
+        }else{
+            return 'You lose';
+        }
+    }
+    if(userChoice === 'paper'){
+        if(computerChocie === 'rock'){
+            return 'You win';
+        }else{
+            return 'You lose';
+        }
+    }
+    if(userChoice === 'scissors'){
+        if(computerChocie === 'paper'){
+            return 'You win';
+        }else{
+            return 'You lose';
+        }
+    }
 }
 
-else {
-    return "You Lose!"
+function playGame(){
+    const userChoice = getUserChoice(prompt('Make your choice'));
+    const computerChocie = getComputerChoice();
+    console.log(`You chose: ${userChoice}`);
+    console.log(`The computer chose: ${computerChocie}`);
+    console.log(determineWinner(userChoice,computerChocie));
 }
 
-}
-
-const playerSelection = prompt("Please enter value").toLowerCase;
-const computerSelection = getComputerChoice(choice);
-console.log(round(playerSelection,computerSelection));
+playGame();
