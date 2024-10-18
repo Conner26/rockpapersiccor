@@ -50,5 +50,5 @@ function playGame(){
     console.log(`The computer chose: ${computerChocie}`);
     console.log(determineWinner(userChoice,computerChocie));
 }
-/// play
+///play game
 playGame();
