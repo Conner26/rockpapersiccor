@@ -1,54 +1,87 @@
-//file for game
-
-function getUserChoice(userInput){
+// Function to get user input
+function getUserChoice(userInput) {
     userInput = userInput.toLowerCase();
-    if(userInput === 'rock' || userInput === 'paper' || userInput === 'scissors'){
-        return userInput; 
-    }else{
-        console.log('Invalid choice Please choose rock paper or scissors.');
+    if (userInput === 'rock' || userInput === 'paper' || userInput === 'scissors') {
+      return userInput;
+    } else {
+      console.log('Invalid choice! Please choose rock, paper, or scissors.');
+      return null;
     }
-}
-/// Determining Choice and Outcome
-function getComputerChoice(){
-    const choices = ['rock','paper','scissors'];
-    const randomChoice =
-Math.floor(Math.random()*3);
+  }
+  
+  // Function to get computer choice
+  function getComputerChoice() {
+    const choices = ['rock', 'paper', 'scissors'];
+    const randomChoice = Math.floor(Math.random() * 3);
     return choices[randomChoice];
-}
-
-function determineWinner(userChoice,computerChocie){
-    if (userChoice === computerChocie){
-        return "It's a tie"
+  }
+  
+  // Function to determine winner
+  function determineWinner(userChoice, computerChoice) {
+    if (userChoice === computerChoice) {
+      return 'tie';
     }
-    if(userChoice === 'rock'){
-        if(computerChocie === 'scissors'){
-            return 'You win';
-        }else{
-            return 'You lose';
-        }
+  
+    if (userChoice === 'rock') {
+      return computerChoice === 'scissors' ? 'user' : 'computer';
+    } else if (userChoice === 'paper') {
+      return computerChoice === 'rock' ? 'user' : 'computer';
+    } else if (userChoice === 'scissors') {
+      return computerChoice === 'paper' ? 'user' : 'computer';
     }
-    if(userChoice === 'paper'){
-        if(computerChocie === 'rock'){
-            return 'You win';
-        }else{
-            return 'You lose';
-        }
+  }
+  
+  // Function to play the game
+  function playGame() {
+    let userScore = 0;
+    let computerScore = 0;
+    let rounds = parseInt(prompt('How many rounds would you like to play?'), 10);
+  
+    if (isNaN(rounds) || rounds <= 0) {
+      console.log('Invalid input. Exiting game.');
+      return;
     }
-    if(userChoice === 'scissors'){
-        if(computerChocie === 'paper'){
-            return 'You win';
-        }else{
-            return 'You lose';
-        }
+  
+    for (let i = 1; i <= rounds; i++) {
+      console.log(`\nRound ${i}`);
+      const userChoiceInput = prompt('Make your choice (rock, paper, or scissors):');
+      const userChoice = getUserChoice(userChoiceInput);
+  
+      if (!userChoice) {
+        console.log('Skipping this round due to invalid input.');
+        continue;
+      }
+  
+      const computerChoice = getComputerChoice();
+      console.log(`You chose: ${userChoice}`);
+      console.log(`The computer chose: ${computerChoice}`);
+  
+      const winner = determineWinner(userChoice, computerChoice);
+  
+      if (winner === 'user') {
+        console.log('You win this round!');
+        userScore++;
+      } else if (winner === 'computer') {
+        console.log('Computer wins this round!');
+        computerScore++;
+      } else {
+        console.log("It's a tie!");
+      }
+  
+      console.log(`Score -> You: ${userScore}, Computer: ${computerScore}`);
     }
-}
-
-function playGame(){
-    const userChoice = getUserChoice(prompt('Make your choice'));
-    const computerChocie = getComputerChoice();
-    console.log(`You chose: ${userChoice}`);
-    console.log(`The computer chose: ${computerChocie}`);
-    console.log(determineWinner(userChoice,computerChocie));
-}
-///play 
-playGame();
+  
+    // Final results
+    console.log('\nGame Over!');
+    if (userScore > computerScore) {
+      console.log('Congratulations! You won the game!');
+    } else if (computerScore > userScore) {
+      console.log('Better luck next time! The computer won.');
+    } else {
+      console.log("It's a tie game!");
+    }
+  }
+  
+  // Start the game
+  playGame();
+  
